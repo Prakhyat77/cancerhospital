@@ -1,0 +1,22 @@
+<%- include('./partials/header.ejs')%> <%-
+include('./partials/navigation.ejs')%>
+<section class="contact" id="contact-us">
+  <div class="contactBx">
+    <h1 class="contHeading">Patient Login</h1>
+    <form autocomplete="off" action="/patientLogin" class="form" method="POST">
+      <div class="inputBx">
+        <input
+          type="tel"
+          name="mobile"
+          pattern="[6789][0-9]{9}"
+          placeholder="Mobile number"
+          required
+        />
+      </div>
+      <div class="inputBx">
+        <input type="submit" value="Send" />
+      </div>
+    </form>
+  </div>
+</section>
+<%- include('./partials/footer.ejs')%>

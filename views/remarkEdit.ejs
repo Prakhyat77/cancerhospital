@@ -1,0 +1,83 @@
+<%- include('./partials/header.ejs')%> <%-
+include('./partials/navigation.ejs')%>
+<section class="contact" id="contact-us">
+  <div class="contactBx">
+    <h1 class="contHeading">Remark Edit</h1>
+    <form
+      action="/editRemarks/<%= remarkData._id %>"
+      autocomplete="off"
+      class="form"
+      method="POST"
+    >
+      <div class="inputBx">
+        <input type="text" name="remarks" value="<%= remarkData.Medicine  %>" placeholder="Medicine Name" required/>
+      </div>
+      <div class="inputBx">
+        <input type="number" name="quantity" value="<%= remarkData.Quantity %>" placeholder="Quantity" />
+      </div>
+      <!-- dropdown diagnosis -->
+      <div class="inputBx">
+        <div class="dropdown">
+          <select name="medtype" id="medtype" required>
+            <option <%= remarkData.MedicineType == ''|| null || undefined ? 'selected' : ''  %> selected disabled hidden>SELECT TYPE</option>
+            <option <%= remarkData.MedicineType == 'Injection' ? 'selected' : ''  %>  value="Injection">Injection</option>
+            <option <%= remarkData.MedicineType == 'Tablet' ? 'selected' : ''  %> value="Tablet">Tablet</option>
+          </select>
+        </div>
+      </div>
+      <div class="inputBx">
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </div>
+</section>
+<hr />
+<a href="/remarks"
+  ><button style="left: 45%; background: rgb(61, 211, 61); color: #fff">
+    Add Remarks
+  </button></a
+>
+<hr />
+<div style="overflow-x: auto; margin: 20px">
+  <table class="tableHeading">
+    <tr>
+      <th>S.no</th>
+      <th>Type</th>
+      <th>Remarks(Medicine)</th>
+      <th>Quantity</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    <% let incr=0%> <% remarksDetails.forEach(remarks=>{ %>
+    <tr>
+      <td><%= incr+=1%></td>
+      <td><%=remarks.MedicineType%></td>
+      <td><%=remarks.Medicine%></td>
+      <td><%=remarks.Quantity%></td>
+      <td>
+        <a href="/editRemarks/<%= remarks._id%>"
+          ><button style="background: rgb(6, 147, 241); color: #fff">
+            Edit
+          </button></a
+        >
+      </td>
+      <td>
+        <button
+          onclick="deleteRemark('<%= remarks._id%>')"
+          style="background: rgb(187, 49, 49); color: #fff"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <%}) %>
+  </table>
+</div>
+<script>
+  function deleteRemark(id) {
+    if (confirm("Delete a Remark")) {
+      window.location.href = "/deleteRemarks/" + id;
+    }
+  }
+</script>
+<%- include('./partials/footer.ejs')%> -->

@@ -1,0 +1,98 @@
+<%- include('./partials/header.ejs') %> <%- include('./partials/navigation.ejs')
+%>
+<section class="contact" id="contact-us">
+  <div class="contactBx">
+    <h1 class="contHeading">Filter Patient Full Report</h1>
+    <form
+      action="/searchfullReport"
+      autocomplete="off"
+      class="form"
+      method="POST"
+    >
+      <div class="inputBx">
+        <label>Start Date</label>
+        <input type="date" name="startDate" />
+      </div>
+      <div class="inputBx">
+        <label>End Date</label>
+        <input type="date" name="endDate" />
+      </div>
+      <!-- dropdown diagnosis -->
+      <div class="inputBx">
+        <div class="dropdown">
+          <select name="diagnosis" id="diagnosis">
+            <option value="" selected disabled hidden>SELECT DIAGNOSIS</option>
+            <option value="">No Diagnosis</option>
+            <% diagnosisDetails.forEach(diagnosis=>{%>
+            <option value="<%= diagnosis.Diagnosis%>">
+              <%= diagnosis.Diagnosis%>
+            </option>
+            <%})%>
+          </select>
+        </div>
+      </div>
+      <div class="inputBx">
+        <label>Sort By Mobile Number</label>
+        <input
+          type="tel"
+          pattern="[6789][0-9]{9}"
+          name="mobile"
+          placeholder="Mobile Number"
+        />
+      </div>
+      <div class="inputBx">
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </div>
+</section>
+<div id="patientFullReport" style="margin: 20px">
+  <table class="tableHeading" style="overflow-x: auto">
+    <tr>
+      <th>S.no.</th>
+      <th>OPD</th>
+      <th>IPD</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Case</th>
+      <th>Referral Case</th>
+      <th>Palliative</th>
+      <th>Chemotherapy</th>
+      <th>Diagnosis</th>
+      <th>Prescription Date</th>
+      <th>Remarks(Medicine)</th>
+      <th>Dr Name</th>
+    </tr>
+    <% if(prescriptionDetails.length>0){ %> <% let incr=0%> <%
+    prescriptionDetails.forEach(prescription=>{ %>
+    <%patientDetails.forEach(patient=>{ %> <% if (String(patient._id) ===
+    String(prescription.Patient)) { %>
+    <tr>
+      <td><%= incr+=1%></td>
+      <td><%= prescription.OPD%></td>
+      <td><%= prescription.IPD%></td>
+      <td><%= patient.Name%></td>
+      <% let age =Date().slice(11,15)-patient.Age %>
+      <td><%=age%></td>
+      <td><%= patient.Gender%></td>
+      <td><%= prescription.Case%></td>
+      <td><%= prescription.ReferralCase%></td>
+      <td><%= prescription.Palliative%></td>
+      <td><%= prescription.Chemotherapy%></td>
+      <td><%= prescription.Diagnosis%></td>
+      <td><%= prescription.PrescriptionDate%></td>
+      <td><%= prescription.RemarkMedicine%></td>
+      <td><%= prescription.Dr_Name%></td>
+    </tr>
+    <% } %> <% }) %> <%}) %> <% }else{%>
+    <tr>
+      <td colspan="14" style="text-align: center; font-weight: bold">
+        No Record Found
+      </td>
+    </tr>
+    <%} %>
+  </table>
+</div>
+
+<%- include('./partials/footer.ejs') %>

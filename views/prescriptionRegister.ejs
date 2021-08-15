@@ -1,0 +1,124 @@
+<%- include('./partials/header.ejs')%>
+<a href="/prescription/<%= patientid %>"
+  ><button
+    style="margin: 10px; background: black; color: #fff; font-weight: 400"
+  >
+    &#8592; Back
+  </button></a
+>
+<section class="contact" id="contact-us">
+  <div class="contactBx">
+    <h1 class="contHeading">Add Prescription</h1>
+    <form
+      action="/prescriptionRegister/<%= patientid %>"
+      autocomplete="off"
+      class="form"
+      method="POST"
+    >
+      <!-- opdnumber -->
+      <div class="inputBx">
+        <input type="number" name="opd" placeholder="OPD number" />
+      </div>
+      <!-- ipdnumber -->
+      <div class="inputBx">
+        <input type="number" name="ipd" placeholder="IPD number" />
+      </div>
+      <!-- prescdate -->
+      <div class="inputBx">
+        <input
+          type="date"
+          name="prescDate"
+          placeholder="Prescription Date"
+          required
+        />
+      </div>
+      <!-- drname -->
+      <div class="inputBx">
+        <input type="text" name="DrName" placeholder="DrName" required />
+      </div>
+      <!-- dropdown diagnosis -->
+      <div class="inputBx">
+        <div class="dropdown">
+          <select name="diagnosis" id="diagnosis" required>
+            <option value="" selected disabled hidden>SELECT DIAGNOSIS</option>
+            <option value="">No Diagnosis</option>
+            <% diagnosisDetails.forEach(diagnosis=>{%>
+            <option value="<%= diagnosis.Diagnosis%>">
+              <%= diagnosis.Diagnosis%>
+            </option>
+            <%})%>
+          </select>
+        </div>
+      </div>
+      <!-- dropdown referral -->
+      <div class="inputBx">
+        <div class="dropdown">
+          <select name="referral" id="diagnosis" required>
+            <option value="" selected disabled hidden>
+              SELECT IF CASE IS REFERRAL
+            </option>
+            <option value="">Not Referral Case</option>
+            <option value="Surgery">Surgery</option>
+            <option value="Radiotherapy">Radiotherapy</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <!-- dropdown PALLIATIVE -->
+      <div class="inputBx">
+        <div class="dropdown">
+          <select name="palliative" id="diagnosis" required>
+            <option value="" selected disabled hidden>
+              SELECT IF CASE IS PALLIATIVE
+            </option>
+            <option value="">Not of Palliative</option>
+            <option value="Chemo">Chemo</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <!-- dropdown Chemotherapy -->
+      <div class="inputBx">
+        <div class="dropdown">
+          <select name="chemotherapy" id="diagnosis" required>
+            <option value="" selected disabled hidden>
+              SELECT IF CASE IS OF CHEMOTHERAPY
+            </option>
+            <option value="">Not of Chemotherapy</option>
+            <option value="IV_Chemotherapy">IV Chemotherapy</option>
+            <option value="Oral_Chemotherapy">Oral Chemotherapy</option>
+          </select>
+        </div>
+      </div>
+      <!-- Remarks -->
+      <div>
+        <span style="font-size: medium; font-weight: bold">Select Remarks</span>
+        <br />
+        <% remarksDetails.forEach(remarks=>{%>
+        <input type="checkbox" name="remarks" value="<%= remarks.Medicine%>" />
+        <label><%= remarks.Medicine%></label>
+        <br />
+        <%})%>
+      </div>
+      <br />
+      <br />
+      <!-- Case -->
+      <div>
+        <span style="font-size: medium; font-weight: bold">Select Case</span>
+        <br />
+        <input type="radio" name="case" value="New" required />
+        <label>New</label>
+        <input type="radio" name="case" value="Old" required />
+        <label>Old</label>
+        <br />
+      </div>
+      <br />
+      <br />
+      <!-- submit -->
+      <div class="inputBx">
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </div>
+</section>
+<%- include('./partials/footer.ejs')%>

@@ -1,0 +1,248 @@
+<%- include('./partials/header.ejs')%> <%-
+include('./partials/navigation.ejs')%>
+<section class="contact" id="contact-us">
+  <div class="contactBx">
+    <h1 class="contHeading">Generate Patient Full Report</h1>
+    <form action="/generate" autocomplete="off" class="form" method="POST">
+      <div class="inputBx">
+        <label>Start Date</label>
+        <input type="date" name="startDate" />
+      </div>
+      <div class="inputBx">
+        <label>End Date</label>
+        <input type="date" name="endDate" />
+      </div>
+      <div class="inputBx">
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </div>
+</section>
+<hr />
+<div id="generateReport" style="overflow-x: auto; margin: 20px">
+  <table class="tableHeading">
+    <tr>
+      <th colspan="5" style="text-align: center; font-size: 30px">
+        Report of District Cancer Unit
+      </th>
+    </tr>
+    <tr>
+      <th colspan="5" style="text-align: center; font-size: 25px">
+        <% if(startdate==''){%>Full Report<%}else{%> <%= startdate %> to <%=
+        enddate %> <%} %>
+      </th>
+    </tr>
+    <tr>
+      <th>S.no</th>
+      <th>Daily Data</th>
+      <th>New (a)</th>
+      <th>Old (b)</th>
+      <th>Total (a+b)</th>
+    </tr>
+    <!-- OPD -->
+    <% let opdnew = 0 %> <% let opdold = 0 %>
+    <%prescriptionDetails.forEach(prescription=>{%> <%if (prescription.OPD
+    ==null) {%> <% opdnew = opdnew + 0 %> <%opdold = opdold + 0 %> <%}else{%> <%
+    if(prescription.Case == 'New'){%> <% opdnew = opdnew + 1 %> <%}%> <%
+    if(prescription.Case == 'Old'){%> <%opdold = opdold + 1 %> <%}%> <%}%> <%})
+    %>
+    <tr>
+      <td>1</td>
+      <td>No. of total case attend OPD</td>
+      <td><%= opdnew %></td>
+      <td><%= opdold %></td>
+      <td><%= opdnew + opdold %></td>
+    </tr>
+    <% let ipdnew = 0 %> <% let ipdold = 0 %> <%
+    prescriptionDetails.forEach(prescription=>{%> <%if (prescription.IPD ==
+    null) {%> <% ipdnew = ipdnew + 0 %> <% ipdold = ipdold + 0 %> <%}else{%> <%
+    if(prescription.Case == 'New'){%> <% ipdnew = ipdnew + 1 %> <%}%> <%
+    if(prescription.Case == 'Old'){%> <% ipdold = ipdold + 1 %> <%}%> <%}%> <%})
+    %>
+    <tr>
+      <td>2</td>
+      <td>No. of case admitted</td>
+      <td><%= ipdnew %></td>
+      <td><%= ipdold %></td>
+      <td><%= ipdnew + ipdold %></td>
+    </tr>
+    <% let ivchemonew = 0 %> <% let ivchemoold = 0 %> <% let oralchemoold = 0 %>
+    <% let oralchemonew = 0 %> <% prescriptionDetails.forEach(prescription=>{%>
+    <%if (prescription.Chemotherapy == "") {%> <% ivchemonew = ivchemonew + 0 %>
+    <% ivchemoold = ivchemoold + 0 %> <% oralchemoold = oralchemoold + 0 %> <%
+    oralchemonew = oralchemonew + 0 %> <%}else if(prescription.Chemotherapy ==
+    'IV_Chemotherapy'){%> <% if(prescription.Case == 'New'){%> <% ivchemonew =
+    ivchemonew + 1 %> <%}%> <% if(prescription.Case == 'Old'){%> <% ivchemoold =
+    ivchemoold + 1 %> <%}%> <%}else if(prescription.Chemotherapy ==
+    'Oral_Chemotherapy'){%> <% if(prescription.Case == 'New'){%> <% oralchemonew
+    = oralchemonew + 1 %> <%}%> <% if(prescription.Case == 'Old'){%> <%
+    oralchemoold = oralchemoold + 1 %> <%}%> <%}%> <%}) %>
+
+    <tr>
+      <td>3</td>
+      <td>No. of total cases received IV Chemotherapy</td>
+      <td><%= ivchemonew %></td>
+      <td><%= ivchemoold %></td>
+      <td><%= ivchemonew + ivchemoold %></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Oral Chemo Prescribed</td>
+      <td><%= oralchemonew %></td>
+      <td><%= oralchemoold %></td>
+      <td><%= oralchemonew + oralchemoold %></td>
+    </tr>
+    <% let palliativenew = 0 %> <% let palliativeold = 0 %> <%
+    prescriptionDetails.forEach(prescription=>{%> <%if (prescription.Palliative
+    == "") {%> <% palliativenew = palliativenew + 0 %> <% palliativeold =
+    palliativeold + 0 %> <%}else{%> <% if(prescription.Case == 'New'){%> <%
+    palliativenew = palliativenew + 1 %> <%}%> <% if(prescription.Case ==
+    'Old'){%> <% palliativeold = palliativeold + 1 %> <%}%> <%}%> <%}) %>
+    <tr>
+      <td>5</td>
+      <td>No. of Patient Admitted for palliative</td>
+      <td><%= palliativenew %></td>
+      <td><%= palliativeold %></td>
+      <td><%= palliativenew + palliativeold %></td>
+    </tr>
+    <% let radioold = 0 %> <% let radionew = 0 %> <% let refotherold = 0 %> <%
+    let refothernew = 0 %> <% let surgerynew = 0 %> <% let surgeryold = 0 %> <%
+    prescriptionDetails.forEach(prescription=>{%> <%if
+    (prescription.ReferralCase == "") {%> <% surgerynew = surgerynew + 0%> <%
+    surgeryold = surgeryold + 0 %> <% radionew = radionew + 0 %> <% radioold =
+    radioold + 0 %> <% refotherold = refotherold + 0 %> <% refothernew =
+    refothernew + 0 %> <%}else if(prescription.ReferralCase == 'Surgery'){%> <%
+    if(prescription.Case == 'New'){%> <% surgerynew = surgerynew + 1 %> <%}%> <%
+    if(prescription.Case == 'Old'){%> <% surgeryold = surgeryold + 1 %> <%}%>
+    <%}else if(prescription.ReferralCase == 'Radiotherapy'){%> <%
+    if(prescription.Case == 'New'){%> <% radionew = radionew + 1 %> <%}%> <%
+    if(prescription.Case == 'Old'){%> <% radioold = radioold + 1 %> <%}%>
+    <%}else if(prescription.ReferralCase == 'Other'){%><% if(prescription.Case
+    == 'New'){%> <% refothernew = refothernew + 1 %> <%}%> <%
+    if(prescription.Case == 'Old'){%> <% refotherold = refotherold + 1 %> <%}%>
+    <%}%> <%}) %>
+    <tr>
+      <td>6</td>
+      <td colspan="4" style="text-align: center; font-weight: bold">
+        Referral Case
+      </td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>Surgery</td>
+      <td><%= surgerynew %></td>
+      <td><%= surgeryold %></td>
+      <td><%= surgerynew + surgeryold %></td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>Radiotherapy</td>
+      <td><%= radionew %></td>
+      <td><%= radioold %></td>
+      <td><%= radionew + radioold %></td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>Other</td>
+      <td><%= refothernew %></td>
+      <td><%= refotherold %></td>
+      <td><%= refothernew + refotherold %></td>
+    </tr>
+    <% let hbold = 0 %> <% let hbnew = 0 %> <% let lungsold = 0 %> <% let
+    lungsnew = 0 %> <% let breastold = 0 %> <% let breastnew = 0 %> <% let
+    canotherold = 0 %> <% let canothernew = 0 %> <% let cervixnew = 0 %> <% let
+    cervixold = 0 %> <% prescriptionDetails.forEach(prescription=>{%> <%if
+    (prescription.Diagnosis == "") {%> <% cervixnew = cervixnew + 0%> <%
+    cervixold = cervixold + 0 %> <% hbnew = hbnew + 0 %> <% hbold = hbold + 0 %>
+    <% canotherold = canotherold + 0 %> <% canothernew = canothernew + 0 %>
+    <%}else if(prescription.Diagnosis == 'Cervix'){%> <% if(prescription.Case ==
+    'New'){%> <% cervixnew = cervixnew + 1 %> <%}%> <% if(prescription.Case ==
+    'Old'){%> <% cervixold = cervixold + 1 %> <%}%> <%}else
+    if(prescription.Diagnosis == 'Head_and_Back'){%> <% if(prescription.Case ==
+    'New'){%> <% hbnew = hbnew + 1 %> <%}%> <% if(prescription.Case == 'Old'){%>
+    <% hbold = hbold + 1 %> <%}%> <%}else if(prescription.Diagnosis ==
+    'Other'){%><% if(prescription.Case == 'New'){%> <% canothernew = canothernew
+    + 1 %> <%}%> <% if(prescription.Case == 'Old'){%> <% canotherold =
+    canotherold + 1 %> <%}%> <%}else if(prescription.Diagnosis == 'Breast'){%>
+    <% if(prescription.Case == 'New'){%> <% breastnew = breastnew + 1 %> <%}%>
+    <% if(prescription.Case == 'Old'){%> <% breastold = breastold + 1 %> <%}%>
+    <%}else if(prescription.Diagnosis == 'Lungs'){%> <% if(prescription.Case ==
+    'Old'){%> <% lungsold = lungsold + 1 %> <%}%> <% if(prescription.Case ==
+    'New'){%> <% lungsnew = lungsnew + 1 %> <%}%> <%}%> <%}) %>
+    <tr>
+      <td>7</td>
+      <td colspan="4" style="text-align: center; font-weight: bold">
+        Types of Cancer
+      </td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>Head and Back</td>
+      <td><%= hbnew %></td>
+      <td><%= hbold %></td>
+      <td><%= hbnew + hbold %></td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>Breast</td>
+      <td><%= breastnew %></td>
+      <td><%= breastold %></td>
+      <td><%= breastnew + breastold %></td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>Lungs</td>
+      <td><%= lungsnew %></td>
+      <td><%= lungsold %></td>
+      <td><%= lungsnew + lungsold %></td>
+    </tr>
+    <tr>
+      <td>D</td>
+      <td>Cervix</td>
+      <td><%= cervixnew %></td>
+      <td><%= cervixold %></td>
+      <td><%= cervixnew + cervixold %></td>
+    </tr>
+    <tr>
+      <td>E</td>
+      <td>Other</td>
+      <td><%= canothernew %></td>
+      <td><%= canotherold %></td>
+      <td><%= canothernew + canotherold %></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Other Information</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </table>
+</div>
+<button
+  style="
+    margin: 10px;
+    left: 45%;
+    background: black;
+    color: #fff;
+    font-weight: 400;
+  "
+  onclick="printDiv('generateReport')"
+>
+  Print
+</button>
+<%- include('./partials/footer.ejs')%>
+<script>
+  function printDiv(divName) {
+    var divContents = document.getElementById(divName).innerHTML;
+    var printWindow = window.open("", "");
+    printWindow.document.write(
+      "<html><head><link rel='stylesheet' href='/stylesheets/style.css'><title>Report of District Cancer Unit(Katni)</title>",
+    );
+    printWindow.document.write("</head><body >");
+    printWindow.document.write(divContents);
+    printWindow.document.write("</body></html>");
+    printWindow.document.close();
+    printWindow.print();
+  }
+</script>

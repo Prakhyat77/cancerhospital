@@ -1,0 +1,125 @@
+<%- include('./partials/header.ejs')%>
+<a href="/patientReport"><button style="margin: 10px; background: black; color: #fff; font-weight: 400;">&#8592; Back</button></a>
+<section class="contact" id="contact-us">
+  <div class="contactBx">
+    <h1 class="contHeading">Edit Patient</h1>
+    <form
+      id="form"
+      action="/editPatient/<%= patient._id%>"
+      autocomplete="off"
+      class="form"
+      method="POST"
+    >
+      <div class="inputBx">
+        <input
+          type="text"
+          name="name"
+          value="<%= patient.Name%>"
+          placeholder="Name"
+          required
+        />
+      </div>
+      <!-- dropdown -->
+      <div class="inputBx">
+        <div class="dropdown">
+          <select name="relationship" id="relationship">
+            <option  <%= patient.Relationship === ''|| null || undefined ? 'selected' : ''  %> value="none" >
+              SELECT Relationship
+            </option>
+            <option <%= patient.Relationship === 's/o' ? 'selected' : ''  %>  value="s/o">s/o</option>
+            <option <%= patient.Relationship === 'd/o' ? 'selected' : ''  %> value="d/o">d/o</option>
+            <option <%= patient.Relationship === 'w/o' ? 'selected' : ''  %> value="w/o">w/o</option>
+          </select>
+        </div>
+      </div>
+      <div class="inputBx">
+        <input
+          type="text"
+          name="relative"
+          value="<%= patient.Relative%>"
+          placeholder="Relative Name"
+        />
+      </div>
+      <div class="inputBx">
+        <input
+          type="text"
+          name="address"
+          value="<%= patient.Address%>"
+          placeholder="Address"
+          required
+        />
+      </div>
+      <div class="inputBx">
+        <input
+          type="text"
+          name="village"
+          value="<%= patient.Village%>"
+          placeholder="Village"
+        />
+      </div>
+      <div class="inputBx">
+        <input
+          type="text"
+          name="tehsil"
+          value="<%= patient.Tehsil%>"
+          placeholder="Tehsil"
+        />
+      </div>
+      <div class="inputBx">
+        <input
+          type="text"
+          name="district"
+          value="<%= patient.District%>"
+          placeholder="District"
+        />
+      </div>
+      <% let age =Date().slice(11,15)-patient.Age %>
+      <div class="inputBx">
+        <input
+          type="number"
+          name="age"
+          value="<%= age%>"
+          placeholder="Age"
+          required
+        />
+      </div>
+      <div>
+        <input type="radio" name="gender" value="Male" <%=
+        patient.Gender=='Male' ? 'checked' : '' %> required/>
+        <label>Male</label>
+        <input type="radio" name="gender" value="Female" <%=
+        patient.Gender=='Female' ? 'checked' : '' %> required/>
+        <label>Female</label>
+        <input type="radio" name="gender" value="Others" <%=
+        patient.Gender=='Others' ? 'checked' : '' %> required/>
+        <label>Others</label>
+      </div>
+      <br />
+      <div class="inputBx">
+        <input
+          type="tel"
+          pattern="[6789][0-9]{9}"
+          name="mobile"
+          placeholder="Mobile"
+          value="<%= patient.Mobile%>"
+          readonly
+          required
+        />
+      </div>
+      <div class="inputBx">
+        <input
+          type="number"
+          name="aadhaar"
+          value="<%= patient.Aadhaar%>"
+          placeholder="Aadhaar Number"
+        />
+      </div>
+      <br />
+      <div class="inputBx">
+        <input type="submit" value="Update" />
+      </div>
+    </form>
+  </div>
+</section>
+
+<%- include('./partials/footer.ejs')%>

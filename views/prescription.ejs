@@ -1,0 +1,82 @@
+<%- include('./partials/header.ejs')%>
+<a href="/patientLogin"
+  ><button
+    style="margin: 10px; background: black; color: #fff; font-weight: 400"
+  >
+    &#8592; Back
+  </button></a
+>
+<section class="contact" id="contact-us">
+  <div class="findus">
+    <div>
+      <h1 class="contHeading">Prescription</h1>
+      <p class="contText">Name= <%= patient.Name%></p>
+      <% let age =Date().slice(11,15)-patient.Age %>
+      <p class="contText">Age= <%= age%></p>
+      <p class="contText">Mobile= <%= patient.Mobile%></p>
+    </div>
+  </div>
+</section>
+
+<hr />
+<a href="/prescriptionRegister/<%=patient._id%>"
+  ><button style="left: 45%; background: rgb(61, 211, 61); color: #fff">
+    Add Prescription
+  </button></a
+>
+<hr />
+<div style="overflow-x: auto; margin: 20px">
+  <table class="tableHeading">
+    <tr>
+      <th>S.no</th>
+      <th>OPD Number</th>
+      <th>IPD Number</th>
+      <th>Case</th>
+      <th>Referral Case</th>
+      <th>Chemotherapy</th>
+      <th>Palliative</th>
+      <th>Diagnosis</th>
+      <th>Remarks</th>
+      <th>Date</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    <% let incr=0%> <% prescriptionDetails.forEach(prescription=>{%>
+    <tr>
+      <td><%= incr+=1%></td>
+      <td><%= prescription.OPD %></td>
+      <td><%= prescription.IPD %></td>
+      <td><%= prescription.Case %></td>
+      <td><%= prescription.ReferralCase %></td>
+      <td><%= prescription.Chemotherapy %></td>
+      <td><%= prescription.Palliative %></td>
+      <td><%= prescription.Diagnosis %></td>
+      <td><%= prescription.RemarkMedicine %></td>
+      <td><%= prescription.PrescriptionDate %></td>
+      <td>
+        <a href="/editPrescription/<%= prescription._id%>"
+          ><button style="background: rgb(6, 147, 241); color: #fff">
+            Edit
+          </button></a
+        >
+      </td>
+      <td>
+        <button
+          onclick="deletePrescription('<%= prescription._id%>')"
+          style="background: rgb(187, 49, 49); color: #fff"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <%}) %>
+  </table>
+</div>
+<script>
+  function deletePrescription(id) {
+    if (confirm("Delete a Prescription")) {
+      window.location.href = "/deletePrescription/" + id;
+    }
+  }
+</script>
+<%- include('./partials/footer.ejs')%>

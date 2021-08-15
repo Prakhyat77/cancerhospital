@@ -1,0 +1,59 @@
+<%- include('./partials/header.ejs')%> <%-
+include('./partials/navigation.ejs')%>
+<section class="contact" id="contact-us">
+  <div class="contactBx">
+    <h1 class="contHeading">Diagnosis</h1>
+    <form action="/diagnosis" autocomplete="off" class="form" method="POST">
+      <div class="inputBx">
+        <textarea
+          name="diagnosis"
+          placeholder="Write Diagnosis here"
+          required
+        ></textarea>
+      </div>
+      <div class="inputBx">
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </div>
+</section>
+<hr />
+<div style="overflow-x: auto; margin: 20px">
+  <table class="tableHeading">
+    <tr>
+      <th>S.no</th>
+      <th>Diagnosis</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    <% let incr=0%> <% diagnosisDetails.forEach(diagnosis=>{ %>
+    <tr>
+      <td><%= incr+=1%></td>
+      <td><%=diagnosis.Diagnosis%></td>
+      <td>
+        <a href="/editDiagnosis/<%= diagnosis._id%>"
+          ><button style="background: rgb(6, 147, 241); color: #fff">
+            Edit
+          </button></a
+        >
+      </td>
+      <td>
+        <button
+          onclick="deleteDiagnosis('<%= diagnosis._id%>')"
+          style="background: rgb(187, 49, 49); color: #fff"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <%}) %>
+  </table>
+</div>
+<script>
+  function deleteDiagnosis(id) {
+    if (confirm("Delete a Diagnosis")) {
+      window.location.href = "/deleteDiagnosis/" + id;
+    }
+  }
+</script>
+<%- include('./partials/footer.ejs')%>

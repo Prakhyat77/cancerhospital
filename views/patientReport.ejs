@@ -1,0 +1,104 @@
+<%- include('./partials/header.ejs')%> <%-
+include('./partials/navigation.ejs')%>
+<section class="contact" id="contact-us">
+  <div class="contactBx">
+    <% if (message.length>0){%>
+    <h3 style="color: rgb(218, 47, 47)"><%= message %></h3>
+    <%}%>
+    <h1 class="contHeading">Search Patient</h1>
+    <form
+      action="/searchpatientReport"
+      autocomplete="off"
+      class="form"
+      method="POST"
+    >
+      <div class="inputBx">
+        <label>Sort By Name</label>
+        <input type="text" name="name" placeholder="Name" />
+      </div>
+      <div class="inputBx">
+        <label>Sort By Age</label>
+        <input type="number" name="age" placeholder="Age" />
+      </div>
+      <div class="inputBx">
+        <label>Sort By Mobile Number</label>
+        <input
+          type="tel"
+          pattern="[6789][0-9]{9}"
+          name="mobile"
+          placeholder="Mobile"
+        />
+      </div>
+      <div class="inputBx">
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </div>
+</section>
+<div style="overflow-x: auto; margin: 20px">
+  <table class="tableHeading">
+    <tr>
+      <th>S.no.</th>
+      <th>Name</th>
+      <th>Relationship</th>
+      <th>Relative Name</th>
+      <th>Address</th>
+      <th>Village</th>
+      <th>Tehsil</th>
+      <th>District</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Mobile</th>
+      <th>Aadhaar</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    <% if(patientDetails.length>0){%> <% let incr=0%> <%
+    patientDetails.forEach(patient=>{ %>
+    <tr>
+      <td><%= incr+=1%></td>
+      <td><%=patient.Name%></td>
+      <td><%=patient.Relationship%></td>
+      <td><%=patient.Relative%></td>
+      <td><%=patient.Address%></td>
+      <td><%=patient.Village%></td>
+      <td><%=patient.Tehsil%></td>
+      <td><%=patient.District%></td>
+      <% let age =Date().slice(11,15)-patient.Age %>
+      <td><%=age%></td>
+      <td><%=patient.Gender%></td>
+      <td><%=patient.Mobile%></td>
+      <td><%=patient.Aadhaar%></td>
+      <td>
+        <a href="/editPatient/<%= patient._id%>"
+          ><button style="background: rgb(6, 147, 241); color: #fff">
+            Edit
+          </button></a
+        >
+      </td>
+      <td>
+        <button
+          onclick="deletePatient('<%= patient._id%>')"
+          style="background: rgb(187, 49, 49); color: #fff"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <%}) %> <%}else{%>
+    <tr>
+      <td colspan="15" style="font-weight: bold; text-align: center">
+        No Record Found
+      </td>
+    </tr>
+    <%}%>
+  </table>
+</div>
+<script>
+  function deletePatient(id) {
+    if (confirm("Delete a Patient")) {
+      window.location.href = "/deletePatient/" + id;
+    }
+  }
+</script>
+<%- include('./partials/footer.ejs')%>

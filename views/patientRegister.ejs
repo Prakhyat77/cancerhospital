@@ -1,0 +1,78 @@
+<%- include('./partials/header.ejs')%> <%-
+include('./partials/navigation.ejs')%>
+<section class="contact" id="contact-us">
+  <div class="contactBx">
+    <h1 class="contHeading">Patient Register</h1>
+    <% if (pro===1){%>
+    <p style="color: rgb(218, 47, 47)">
+      Patient mobile Number is already registered
+    </p>
+    <%}%>
+    <form
+      id="form"
+      autocomplete="off"
+      action="/patientRegister"
+      class="form"
+      method="POST"
+    >
+      <div class="inputBx">
+        <input type="text" name="name" placeholder="Name" required />
+      </div>
+      <!-- dropdown -->
+      <div class="inputBx">
+        <div class="dropdown">
+          <select name="relationship" id="relationship">
+            <option selected disabled hidden>SELECT Relationship</option>
+            <option value="s/o">s/o</option>
+            <option value="d/o">d/o</option>
+            <option value="w/o">w/o</option>
+          </select>
+        </div>
+      </div>
+      <div class="inputBx">
+        <input type="text" name="relative" placeholder="Relative Name" />
+      </div>
+      <div class="inputBx">
+        <input type="text" name="address" placeholder="Address" required />
+      </div>
+      <div class="inputBx">
+        <input type="text" name="village" placeholder="Village" />
+      </div>
+      <div class="inputBx">
+        <input type="text" name="tehsil" placeholder="Tehsil" />
+      </div>
+      <div class="inputBx">
+        <input type="text" name="district" placeholder="District" />
+      </div>
+      <div class="inputBx">
+        <input type="number" name="age" placeholder="Age" required />
+      </div>
+      <div>
+        <input type="radio" name="gender" value="Male" required />
+        <label>Male</label>
+        <input type="radio" name="gender" value="Female" required />
+        <label>Female</label>
+        <input type="radio" name="gender" value="Others" required />
+        <label>Others</label>
+      </div>
+      <br />
+      <div class="inputBx">
+        <input
+          type="tel"
+          pattern="[6789][0-9]{9}"
+          name="mobile"
+          placeholder="Mobile"
+          required
+        />
+      </div>
+      <div class="inputBx">
+        <input type="number" name="aadhaar" placeholder="Aadhaar Number" />
+      </div>
+      <br />
+      <div class="inputBx">
+        <input type="submit" value="Register" />
+      </div>
+    </form>
+  </div>
+</section>
+<%- include('./partials/footer.ejs')%>
