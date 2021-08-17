@@ -155,18 +155,19 @@ include('./partials/navigation.ejs')%>
     (prescription.Diagnosis == "") {%> <% cervixnew = cervixnew + 0%> <%
     cervixold = cervixold + 0 %> <% hbnew = hbnew + 0 %> <% hbold = hbold + 0 %>
     <% canotherold = canotherold + 0 %> <% canothernew = canothernew + 0 %>
-    <%}else if(prescription.Diagnosis == 'Cervix'){%> <% if(prescription.Case ==
-    'New'){%> <% cervixnew = cervixnew + 1 %> <%}%> <% if(prescription.Case ==
-    'Old'){%> <% cervixold = cervixold + 1 %> <%}%> <%}else
-    if(prescription.Diagnosis == 'Head_and_Back'){%> <% if(prescription.Case ==
-    'New'){%> <% hbnew = hbnew + 1 %> <%}%> <% if(prescription.Case == 'Old'){%>
-    <% hbold = hbold + 1 %> <%}%> <%}else if(prescription.Diagnosis ==
-    'Other'){%><% if(prescription.Case == 'New'){%> <% canothernew = canothernew
-    + 1 %> <%}%> <% if(prescription.Case == 'Old'){%> <% canotherold =
-    canotherold + 1 %> <%}%> <%}else if(prescription.Diagnosis == 'Breast'){%>
-    <% if(prescription.Case == 'New'){%> <% breastnew = breastnew + 1 %> <%}%>
-    <% if(prescription.Case == 'Old'){%> <% breastold = breastold + 1 %> <%}%>
-    <%}else if(prescription.Diagnosis == 'Lungs'){%> <% if(prescription.Case ==
+    <%}else if(prescription.Diagnosis.includes('CERVIX')){%> <%
+    if(prescription.Case == 'New'){%> <% cervixnew = cervixnew + 1 %> <%}%> <%
+    if(prescription.Case == 'Old'){%> <% cervixold = cervixold + 1 %> <%}%>
+    <%}else if(prescription.Diagnosis.includes('HEAD')){%> <%
+    if(prescription.Case == 'New'){%> <% hbnew = hbnew + 1 %> <%}%> <%
+    if(prescription.Case == 'Old'){%> <% hbold = hbold + 1 %> <%}%> <%}else
+    if(prescription.Diagnosis.includes('OTHER')){%><% if(prescription.Case ==
+    'New'){%> <% canothernew = canothernew + 1 %> <%}%> <% if(prescription.Case
+    == 'Old'){%> <% canotherold = canotherold + 1 %> <%}%> <%}else
+    if(prescription.Diagnosis.includes('BREAST')){%> <% if(prescription.Case ==
+    'New'){%> <% breastnew = breastnew + 1 %> <%}%> <% if(prescription.Case ==
+    'Old'){%> <% breastold = breastold + 1 %> <%}%> <%}else
+    if(prescription.Diagnosis.includes('LUNG')){%> <% if(prescription.Case ==
     'Old'){%> <% lungsold = lungsold + 1 %> <%}%> <% if(prescription.Case ==
     'New'){%> <% lungsnew = lungsnew + 1 %> <%}%> <%}%> <%}) %>
     <tr>
