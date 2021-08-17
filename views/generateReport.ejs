@@ -71,12 +71,13 @@ include('./partials/navigation.ejs')%>
     <%if (prescription.Chemotherapy == "") {%> <% ivchemonew = ivchemonew + 0 %>
     <% ivchemoold = ivchemoold + 0 %> <% oralchemoold = oralchemoold + 0 %> <%
     oralchemonew = oralchemonew + 0 %> <%}else if(prescription.Chemotherapy ==
-    'IV_Chemotherapy'){%> <% if(prescription.Case == 'New'){%> <% ivchemonew =
-    ivchemonew + 1 %> <%}%> <% if(prescription.Case == 'Old'){%> <% ivchemoold =
-    ivchemoold + 1 %> <%}%> <%}else if(prescription.Chemotherapy ==
-    'Oral_Chemotherapy'){%> <% if(prescription.Case == 'New'){%> <% oralchemonew
-    = oralchemonew + 1 %> <%}%> <% if(prescription.Case == 'Old'){%> <%
-    oralchemoold = oralchemoold + 1 %> <%}%> <%}%> <%}) %>
+    'IV_Chemotherapy'){%> <% if(prescription.ChemoCase == 'New'){%> <%
+    ivchemonew = ivchemonew + 1 %> <%}%> <% if(prescription.ChemoCase ==
+    'Old'){%> <% ivchemoold = ivchemoold + 1 %> <%}%> <%}else
+    if(prescription.Chemotherapy == 'Oral_Chemotherapy'){%> <%
+    if(prescription.ChemoCase == 'New'){%> <% oralchemonew = oralchemonew + 1 %>
+    <%}%> <% if(prescription.ChemoCase == 'Old'){%> <% oralchemoold =
+    oralchemoold + 1 %> <%}%> <%}%> <%}) %>
 
     <tr>
       <td>3</td>
@@ -95,9 +96,10 @@ include('./partials/navigation.ejs')%>
     <% let palliativenew = 0 %> <% let palliativeold = 0 %> <%
     prescriptionDetails.forEach(prescription=>{%> <%if (prescription.Palliative
     == "") {%> <% palliativenew = palliativenew + 0 %> <% palliativeold =
-    palliativeold + 0 %> <%}else{%> <% if(prescription.Case == 'New'){%> <%
-    palliativenew = palliativenew + 1 %> <%}%> <% if(prescription.Case ==
-    'Old'){%> <% palliativeold = palliativeold + 1 %> <%}%> <%}%> <%}) %>
+    palliativeold + 0 %> <%}else{%> <% if(prescription.PalliativeCase ==
+    'New'){%> <% palliativenew = palliativenew + 1 %> <%}%> <%
+    if(prescription.PalliativeCase == 'Old'){%> <% palliativeold = palliativeold
+    + 1 %> <%}%> <%}%> <%}) %>
     <tr>
       <td>5</td>
       <td>No. of Patient for palliative</td>
