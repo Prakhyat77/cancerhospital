@@ -6,6 +6,7 @@ const prescriptionSchema = mongoose.Schema({
   Diagnosis: String,
   Case: String,
   Chemotherapy: String,
+  ChemoCase:String,
   RemarkMedicine: [
     {
       type: String,
@@ -15,6 +16,7 @@ const prescriptionSchema = mongoose.Schema({
   IPD: Number,
   ReferralCase: String,
   Palliative: String,
+  PalliativeCase:String,
   Dr_Name: String,
   Patient: {
     type: mongoose.Schema.Types.ObjectId,

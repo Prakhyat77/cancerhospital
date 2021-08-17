@@ -1,20 +1,11 @@
 <%- include('./partials/header.ejs')%>
-<a href="/prescription/<%= patientid %>"
-  ><button
-    style="margin: 10px; background: black; color: #fff; font-weight: 400"
-  >
+<a href="/prescription/<%= patientid %>"><button style="margin: 10px; background: black; color: #fff; font-weight: 400">
     &#8592; Back
-  </button></a
->
+  </button></a>
 <section class="contact" id="contact-us">
   <div class="contactBx">
     <h1 class="contHeading">Add Prescription</h1>
-    <form
-      action="/prescriptionRegister/<%= patientid %>"
-      autocomplete="off"
-      class="form"
-      method="POST"
-    >
+    <form action="/prescriptionRegister/<%= patientid %>" autocomplete="off" class="form" method="POST">
       <!-- opdnumber -->
       <div class="inputBx">
         <input type="number" name="opd" placeholder="OPD number" />
@@ -25,12 +16,7 @@
       </div>
       <!-- prescdate -->
       <div class="inputBx">
-        <input
-          type="date"
-          name="prescDate"
-          placeholder="Prescription Date"
-          required
-        />
+        <input type="date" name="prescDate" placeholder="Prescription Date" required />
       </div>
       <!-- drname -->
       <div class="inputBx">
@@ -77,6 +63,16 @@
           </select>
         </div>
       </div>
+      <!--Palliative Case -->
+      <div>
+        <span style="font-size: medium; font-weight: bold">Select Palliative Case</span>
+        <br />
+        <input type="radio" name="palliativecase" value="New" />
+        <label>New</label>
+        <input type="radio" name="palliativecase" value="Old" />
+        <label>Old</label>
+        <br />
+      </div>
       <!-- dropdown Chemotherapy -->
       <div class="inputBx">
         <div class="dropdown">
@@ -89,6 +85,16 @@
             <option value="Oral_Chemotherapy">Oral Chemotherapy</option>
           </select>
         </div>
+      </div>
+      <!--Chemotherapy Case -->
+      <div>
+        <span style="font-size: medium; font-weight: bold">Select Chemotherapy Case</span>
+        <br />
+        <input type="radio" name="chemocase" value="New" />
+        <label>New</label>
+        <input type="radio" name="chemocase" value="Old" />
+        <label>Old</label>
+        <br />
       </div>
       <!-- Remarks -->
       <div>

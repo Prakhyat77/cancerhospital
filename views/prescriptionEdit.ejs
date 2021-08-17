@@ -1,11 +1,7 @@
 <%- include('./partials/header.ejs')%>
-<a href="/prescription/<%= patientid %>"
-  ><button
-    style="margin: 10px; background: black; color: #fff; font-weight: 400"
-  >
+<a href="/prescription/<%= patientid %>"><button style="margin: 10px; background: black; color: #fff; font-weight: 400">
     &#8592; Back
-  </button></a
->
+  </button></a>
 <section class="contact" id="contact-us">
   <div class="contactBx">
     <h1 class="contHeading">Edit Prescription</h1>
@@ -20,16 +16,16 @@
       </div>
       <!-- prescdate -->
       <div class="inputBx">
-        <input type="date" name="prescDate" value="<%= prescdate  %>" placeholder="Prescription Date" required/>
+        <input type="date" name="prescDate" value="<%= prescdate  %>" placeholder="Prescription Date" required />
       </div>
       <!-- drname -->
       <div class="inputBx">
-        <input type="text" name="DrName" value="<%= prescriptionDetails.Dr_Name  %> " placeholder="DrName" required/>
+        <input type="text" name="DrName" value="<%= prescriptionDetails.Dr_Name  %> " placeholder="DrName" required />
       </div>
       <!-- dropdown diagnosis -->
       <div class="inputBx">
         <div class="dropdown">
-          <select name="diagnosis" id="diagnosis" >
+          <select name="diagnosis" id="diagnosis">
             <option <%= prescriptionDetails.Diagnosis == '' ? 'selected' : ''  %> value="">No Diagnosis
             </option>
             <% diagnosisDetails.forEach(diagnosis=>{%>
@@ -58,58 +54,87 @@
       <!-- dropdown PALLIATIVE -->
       <div class="inputBx">
         <div class="dropdown">
-          <select name="palliative" id="diagnosis" >
+          <select name="palliative" id="diagnosis">
             <option <%= prescriptionDetails.Palliative == '' ? 'selected' : ''  %> value="">Not of Palliative</option>
             <option <%= prescriptionDetails.Palliative == 'Chemo' ? 'selected' : ''  %> value="Chemo">Chemo</option>
             <option <%= prescriptionDetails.Palliative == 'Other' ? 'selected' : ''  %> value="Other">Other</option>
           </select>
         </div>
       </div>
-            <!-- dropdown Chemotherapy -->
-            <div class="inputBx">
-              <div class="dropdown">
-                <select name="chemotherapy" id="diagnosis" >
-                  <option <%= prescriptionDetails.Chemotherapy == '' ? 'selected' : ''  %> value=''>Not of Chemotherapy</option>
-                  <option <%= prescriptionDetails.Chemotherapy == 'IV_Chemotherapy' ? 'selected' : ''  %> value="IV_Chemotherapy">IV Chemotherapy</option>
-                  <option <%= prescriptionDetails.Chemotherapy == 'Oral_Chemotherapy' ? 'selected' : ''  %> value="Oral_Chemotherapy">Oral Chemotherapy</option>
-                </select>
-              </div>
-            </div>
+      <!--Palliative Case -->
+      <div>
+        <span style="font-size: medium; font-weight: bold">Select Palliative Case</span>
+        <br />
+        <input type="radio" name="palliativecase" value="New"
+          <%= prescriptionDetails.PalliativeCase == 'New' ? 'checked' : '' %> />
+        <label>New</label>
+        <input type="radio" name="palliativecase" value="Old"
+          <%= prescriptionDetails.PalliativeCase == 'Old' ? 'checked' : '' %> />
+        <label>Old</label>
+        <br />
+      </div>
+      <!-- dropdown Chemotherapy -->
+      <div class="inputBx">
+        <div class="dropdown">
+          <select name="chemotherapy" id="diagnosis">
+            <option <%= prescriptionDetails.Chemotherapy == '' ? 'selected' : ''  %> value=''>Not of Chemotherapy
+            </option>
+            <option <%= prescriptionDetails.Chemotherapy == 'IV_Chemotherapy' ? 'selected' : ''  %>
+              value="IV_Chemotherapy">IV Chemotherapy</option>
+            <option <%= prescriptionDetails.Chemotherapy == 'Oral_Chemotherapy' ? 'selected' : ''  %>
+              value="Oral_Chemotherapy">Oral Chemotherapy</option>
+          </select>
+        </div>
+      </div>
+      <!--Chemotherapy Case -->
+      <div>
+        <span style="font-size: medium; font-weight: bold">Select Chemotherapy Case</span>
+        <br />
+        <input type="radio" name="chemocase" value="New"
+          <%= prescriptionDetails.ChemoCase == 'New' ? 'checked' : '' %> />
+        <label>New</label>
+        <input type="radio" name="chemocase" value="Old"
+          <%= prescriptionDetails.ChemoCase == 'Old' ? 'checked' : '' %> />
+        <label>Old</label>
+        <br />
+      </div>
       <!-- remarks -->
       <div>
         <span style="font-size: medium; font-weight: bold">Select Remarks</span>
         <br>
-        
+
         <% remarksDetails.forEach(remarks=>{%>
         <% if(prescriptionDetails.RemarkMedicine == null){%>
-        <input type="checkbox" name="remarks" value="<%= remarks.Medicine%>"  />
+        <input type="checkbox" name="remarks" value="<%= remarks.Medicine%>" />
         <label><%= remarks.Medicine%></label>
         <br>
         <%}else if(!prescriptionDetails.RemarkMedicine.includes(remarks.Medicine)){%>
-          <input type="checkbox" name="remarks" value="<%= remarks.Medicine%>"  />
-          <label><%= remarks.Medicine%></label>
-          <br>
+        <input type="checkbox" name="remarks" value="<%= remarks.Medicine%>" />
+        <label><%= remarks.Medicine%></label>
+        <br>
         <%}else{%>
-          <input type="checkbox" name="remarks" value="<%= remarks.Medicine%>" checked />
-          <label><%= remarks.Medicine%></label>
-          <br>
+        <input type="checkbox" name="remarks" value="<%= remarks.Medicine%>" checked />
+        <label><%= remarks.Medicine%></label>
+        <br>
         <%}%>
       <%})%>
       </div>
       <br>
       <br>
-            <!-- Case -->
-            <div>
-              <span style="font-size: medium; font-weight: bold">Select Case</span>
-              <br />
-              <input type="radio" name="case" value="New" required <%= prescriptionDetails.Case == 'New' ? 'checked' : '' %> />
-              <label>New</label>
-              <input type="radio" name="case" value="Old" required <%= prescriptionDetails.Case == 'Old' ? 'checked' : '' %>  />
-              <label>Old</label>
-              <br />
-            </div>
-            <br />
-            <br />
+      <!-- Case -->
+      <div>
+        <span style="font-size: medium; font-weight: bold">Select Case</span>
+        <br />
+        <input type="radio" name="case" value="New" required
+          <%= prescriptionDetails.Case == 'New' ? 'checked' : '' %> />
+        <label>New</label>
+        <input type="radio" name="case" value="Old" required
+          <%= prescriptionDetails.Case == 'Old' ? 'checked' : '' %> />
+        <label>Old</label>
+        <br />
+      </div>
+      <br />
+      <br />
       <!-- submit -->
       <div class="inputBx">
         <input type="submit" value="Submit" />
