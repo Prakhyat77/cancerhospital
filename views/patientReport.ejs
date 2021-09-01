@@ -50,6 +50,7 @@ include('./partials/navigation.ejs')%>
       <th>Gender</th>
       <th>Mobile</th>
       <th>Aadhaar</th>
+      <th>Login</th>
       <th>Edit</th>
       <th>Delete</th>
     </tr>
@@ -69,6 +70,13 @@ include('./partials/navigation.ejs')%>
       <td><%=patient.Gender%></td>
       <td><%=patient.Mobile%></td>
       <td><%=patient.Aadhaar%></td>
+      <td>
+        <a href="/prescription/<%= patient._id%>"
+          ><button style="background: rgb(26, 27, 27); color: #fff">
+            Login
+          </button></a
+        >
+      </td>
       <td>
         <a href="/editPatient/<%= patient._id%>"
           ><button style="background: rgb(6, 147, 241); color: #fff">
