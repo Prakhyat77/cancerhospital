@@ -76,7 +76,7 @@ router.post("/patientRegister", isLoggedIn, async (req, res) => {
               hospitalDetails
                 .save()
                 .then(() => {
-                  res.redirect("/patientLogin");
+                  res.redirect("/prescription/" + patientDetails._id);
                 })
                 .catch((err) => {
                   res.send(err);
@@ -176,7 +176,7 @@ router.post("/searchpatientReport", isLoggedIn, (req, res) => {
     };
   } else if (name != "" && age == "" && mobile == "") {
     var filterparameter = {
-      Name: name,
+      Name: { $regex: "^" + name, $options: "i" },
     };
   } else if (name == "" && age == "" && mobile != "") {
     var filterparameter = {
@@ -708,12 +708,12 @@ router.post("/searchfullReport", isLoggedIn, (req, res) => {
         ],
       };
     }
+  } else if (startdate == "" && enddate == "" && diagnosis == undefined) {
+    var filterData = {};
   } else if (startdate == "" && enddate == "" && diagnosis != "") {
     var filterData = {
       Diagnosis: diagnosis,
     };
-  } else {
-    var filterData = {};
   }
   if (mobile != "") {
     var filter = { Mobile: mobile };
